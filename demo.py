@@ -7,11 +7,11 @@ from widgetgrid import WidgetGrid
 class MainWidget(ttk.Frame):
     def __init__(self, root):
         super().__init__(root)
-        root.title("IconGrid Demo")
+        root.title("WidgetGrid Demo")
         root.geometry("600x400")
 
-        ig = WidgetGrid(self)
-        ig.content.configure(
+        wg = WidgetGrid(self)
+        wg.content.configure(
             borderwidth=0,
             bg="grey",
             highlightthickness=0,
@@ -21,10 +21,10 @@ class MainWidget(ttk.Frame):
             width=200,
             tabs="0.2c"
         )
-        ig.pack(expand=True, fill=tk.BOTH)
+        wg.pack(expand=True, fill=tk.BOTH)
 
         for i in range(200):
-            ig.append(tk.Label(self, text=f"{i}", width=4))
+            wg.append(tk.Label(self, text=f"{i}", width=4))
 
         self.pack()
 
