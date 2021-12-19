@@ -1,5 +1,6 @@
 # WidgetGrid
 A Python + tkinter module to display widgets in a resizable grid.
+![widgetgrid](https://user-images.githubusercontent.com/47459835/146667281-c93a7d06-0b1e-488f-bd9d-66e89cdf5740.png)
 
 # Requirements
 Python 3
