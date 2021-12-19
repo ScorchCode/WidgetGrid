@@ -1,6 +1,9 @@
 # WidgetGrid
 A Python + tkinter module to display widgets in a resizable grid.
+
 ![widgetgrid](https://user-images.githubusercontent.com/47459835/146667281-c93a7d06-0b1e-488f-bd9d-66e89cdf5740.png)
+
+WidgetGrid is a tkinter.Frame containing a `tkinter.Text` and a vertical `tkinter.ttk.Scrollbar`. Put any number of widgets in the `WidgetGrid.content`. They will be displayed in a grid-like pattern, especially when they are all of the same size. There will be an automatic soft line break, so that upon window resizing the grid will adapt.
 
 # Requirements
 Python 3
@@ -9,6 +12,21 @@ Python 3
 Copy `widgetgrid.py` to an appropriate folder.
 
 # Usage
+
+    from widgetgrid import WidgetGrid
+    ...
+    wg = WidgetGrid(parent)
+    wg.content.configure(**options)
+    
+    wg.add(tkinter.Label(self, text="Spam"))
+
+Configure the appearence of `WidgetGrid.content` (the `tkinter.Text` widget) in your main program with all options available for `tkinter.Text`. 
+
+* The `tabs=` option controls the space between columns of widgets.
+* The `spacing2=` option controls the space between rows of widgets.
+
+Use `WidgetGrid.append(widget)` to add `widget` at the end of the grid. Every widget will be followed by a TAB character.
+
 See `demo.py` for example.
 
 # MIT License
