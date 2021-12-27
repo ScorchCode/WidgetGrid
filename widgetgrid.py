@@ -22,13 +22,15 @@ class WidgetGrid(ttk.Frame):
         self.widgetlist = widgets if widgets else []
 
         self.scrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL)
-        self.content = tk.Text(self, wrap=tk.CHAR, yscroll=self.scrollbar.set, state=tk.DISABLED)
+        self.content = tk.Text(self, wrap=tk.CHAR, yscroll=self.scrollbar.set)
         self.scrollbar.configure(command=self.content.yview)
 
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.content.grid(row=0, column=0, sticky=tk.NSEW)
         self.scrollbar.grid(row=0, column=1, sticky=tk.NS)
+
+        self.update()
 
     def append(self, widget):
         """
@@ -40,3 +42,38 @@ class WidgetGrid(ttk.Frame):
         self.content.window_create(tk.END, window=widget)
         self.content.insert(tk.END, "\t")
         self.content.configure(state=tk.DISABLED)
+
+    def clear(self):
+        pass
+
+    def delete(self, ndx):
+        pass
+
+    def insert(self, ndx):
+        pass
+
+    def sort(self, sortkey):
+        pass
+
+    def textindex(self, ndx):
+        """
+        Turn list index into Text index.
+        cc
+        :param ndx: int
+        :return: str
+        """
+        return f"1:{ndx}"
+
+    def update(self):
+        """
+        Show changes to more than one element.
+        :return:
+        """
+        self.content.configure(state=tk.NORMAL)
+        self.content.delete("1.0", tk.END)
+
+        for wdg in self.widgetlist:
+            self.content.window_create(tk.END, window=wdg)
+            self.content.insert(tk.END, "\t")
+
+        self.content.configure(state=tk.DISABLED)  # prevent accidental editing
