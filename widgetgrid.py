@@ -32,16 +32,28 @@ class WidgetGrid(ttk.Frame):
 
         self.show_all()
 
+    def temp_enable(function):
+        """
+        Decorator: temporarily enable editing the Text widget.
+        :return: function
+        """
+        def wrap(*args):
+            args[0].content.configure(state=tk.NORMAL)
+            function(*args)
+            args[0].content.configure(state=tk.DISABLED)
+        return wrap
+
+    @temp_enable
     def append(self, widget):
         """
         Add a widget and a TAB at the end.
         """
         self.widgetlist.append(widget)
 
-        self.content.configure(state=tk.NORMAL)
+        # self.content.configure(state=tk.NORMAL)
         self.content.window_create(tk.END, window=widget)
         self.content.insert(tk.END, "\t")
-        self.content.configure(state=tk.DISABLED)
+        # self.content.configure(state=tk.DISABLED)
 
     def clear(self):
         """
