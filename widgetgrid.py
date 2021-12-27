@@ -58,7 +58,7 @@ class WidgetGrid(ttk.Frame):
     def textindex(self, ndx):
         """
         Turn list index into Text index.
-        cc
+
         :param ndx: int
         :return: str
         """
