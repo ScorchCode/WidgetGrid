@@ -35,7 +35,10 @@ class WidgetGrid(ttk.Frame):
     def temp_enable(function):
         """
         Decorator: temporarily enable editing the Text widget.
-        :return: function
+
+        It's tk.DISABLED by default to avoid accidentally entering something.
+
+        :return:
         """
         def wrap(*args):
             args[0].content.configure(state=tk.NORMAL)
@@ -50,11 +53,10 @@ class WidgetGrid(ttk.Frame):
         """
         self.widgetlist.append(widget)
 
-        # self.content.configure(state=tk.NORMAL)
         self.content.window_create(tk.END, window=widget)
         self.content.insert(tk.END, "\t")
-        # self.content.configure(state=tk.DISABLED)
 
+    @temp_enable
     def clear(self):
         """
         Purge self.widgetlist and self.content.
@@ -62,8 +64,9 @@ class WidgetGrid(ttk.Frame):
         :return:
         """
         self.widgetlist = []
-        self.show_all()
+        self.content.delete("1.0", tk.END)
 
+    @temp_enable
     def delete(self, ndx):
         """
         Delete one element from both list and content.
@@ -72,8 +75,9 @@ class WidgetGrid(ttk.Frame):
         :return:
         """
         del self.widgetlist[ndx]
-        self.content.delete(self.textindex(ndx), self.textindex(ndx+1))
+        self.content.delete(self.textindex(2*ndx), self.textindex(2*ndx+1))
 
+    @temp_enable
     def insert(self, ndx, wdg):
         """
         Insert widget wdg into list and content at index ndx.
@@ -84,21 +88,20 @@ class WidgetGrid(ttk.Frame):
         """
         pass
 
+    @temp_enable
     def show_all(self):
         """
         Update content to show changes to more than one element.
 
         :return:
         """
-        self.content.configure(state=tk.NORMAL)
         self.content.delete("1.0", tk.END)
 
         for wdg in self.widgetlist:
             self.content.window_create(tk.END, window=wdg)
             self.content.insert(tk.END, "\t")
 
-        self.content.configure(state=tk.DISABLED)  # prevent accidental editing
-
+    @temp_enable
     def sort(self, sortkey):
         """
         Sort widgetlist by sortkey and show newly sorted content.
