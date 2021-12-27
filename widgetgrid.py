@@ -3,9 +3,7 @@ from tkinter import ttk
 """
 Display tkinter widgets in a resizable grid.
 
-WidgetGrid returns a tkinter.Frame.
-
-WidgetGrid.content is a tkinter.Text.
+WidgetGrid.content is derived from tkinter.Text.
 Its appearance can be configured with all the options of Text.
 The tabs option controls the space between columns of widgets.
 The spacing2 option controls the space between rows of widgets.
@@ -13,8 +11,16 @@ The spacing2 option controls the space between rows of widgets.
 
 
 class WidgetGrid(ttk.Frame):
-    def __init__(self, parent):
+    def __init__(self, parent, widgets=None):
+        """
+        :param parent:
+            The containing widget
+        :param widgets:
+            Initial list of widgets
+        """
         super().__init__(parent)
+        self.widgetlist = widgets if widgets else []
+
         self.scrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL)
         self.content = tk.Text(self, wrap=tk.CHAR, yscroll=self.scrollbar.set, state=tk.DISABLED)
         self.scrollbar.configure(command=self.content.yview)
@@ -28,6 +34,8 @@ class WidgetGrid(ttk.Frame):
         """
         Add a widget and a TAB at the end.
         """
+        self.widgetlist.append(widget)
+
         self.content.configure(state=tk.NORMAL)
         self.content.window_create(tk.END, window=widget)
         self.content.insert(tk.END, "\t")
