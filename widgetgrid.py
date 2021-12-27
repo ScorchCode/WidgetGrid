@@ -44,29 +44,38 @@ class WidgetGrid(ttk.Frame):
         self.content.configure(state=tk.DISABLED)
 
     def clear(self):
-        pass
+        """
+        Purge self.widgetlist and self.content.
+
+        :return:
+        """
+        self.widgetlist = []
+        self.show_all()
 
     def delete(self, ndx):
-        pass
-
-    def insert(self, ndx):
-        pass
-
-    def sort(self, sortkey):
-        pass
-
-    def textindex(self, ndx):
         """
-        Turn list index into Text index.
+        Delete one element from both list and content.
 
         :param ndx: int
-        :return: str
+        :return:
         """
-        return f"1:{ndx}"
+        del self.widgetlist[ndx]
+        self.content.delete(self.textindex(ndx), self.textindex(ndx+1))
+
+    def insert(self, ndx, wdg):
+        """
+        Insert widget wdg into list and content at index ndx.
+
+        :param ndx: int
+        :param wdg: Widget
+        :return:
+        """
+        pass
 
     def show_all(self):
         """
-        Show changes to more than one element.
+        Update content to show changes to more than one element.
+
         :return:
         """
         self.content.configure(state=tk.NORMAL)
@@ -77,3 +86,21 @@ class WidgetGrid(ttk.Frame):
             self.content.insert(tk.END, "\t")
 
         self.content.configure(state=tk.DISABLED)  # prevent accidental editing
+
+    def sort(self, sortkey):
+        """
+        Sort widgetlist by sortkey and show newly sorted content.
+
+        :param sortkey:
+        :return:
+        """
+        pass
+
+    def textindex(self, ndx):
+        """
+        Turn list index into Text index.
+
+        :param ndx: int
+        :return: str
+        """
+        return f"1:{ndx}"
