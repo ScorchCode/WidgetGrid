@@ -30,7 +30,7 @@ class WidgetGrid(ttk.Frame):
         self.content.grid(row=0, column=0, sticky=tk.NSEW)
         self.scrollbar.grid(row=0, column=1, sticky=tk.NS)
 
-        self.update()
+        self.show_all()
 
     def append(self, widget):
         """
@@ -64,7 +64,7 @@ class WidgetGrid(ttk.Frame):
         """
         return f"1:{ndx}"
 
-    def update(self):
+    def show_all(self):
         """
         Show changes to more than one element.
         :return:
